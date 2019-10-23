@@ -1,0 +1,38 @@
+# Branching
+
+Since commits represent the smallest coherent units of work, you may be wondering what tools Git gives us to organize commits (besides just making more and more of them, which is what we've done so far). Or, if you weren't wondering about that, you may be wondering why I am even bringing this up.
+
+Imagine that yesterday your project was in a good state of partial completion: everything that you've done so far was working as expected, but there are some things that you haven't tackled yet. Today, you decide to tackle a new component of your project. 
+
+To use our playground example so far, let's say that you want to replace the histogram of eruption durations with a scatter plot of eruption durations against between-eruption intervals. There will be a lot of changes involved in this: the slider no longer makes sense, the title of the plot probably needs to change, and the plot itself will be completely different. This will probably take several commits from start to finish.
+
+To accomplish this, start by replacing the histogram with a scatter plot by changing the `output$distPlot` block to this:
+
+```
+plotOutput("scatterPlot")
+```
+
+```
+output$scatterPlot <- renderPlot({
+    x    <- faithful[, 1]
+    y    <- faithful[, 2]
+
+    # draw the scatter plot
+    plot(x, y)
+})
+```
+
+You could stage and commit this change with a message like "Replaced histogram with a scatter plot", but let's hold off on that for now. If you did commit it, your next task would probably be to get rid of the useless slider.
+
+But wait. At this moment your coworker walks into your office. They are using your code for a presentation, and they want to show *both* the duration and the time between eruptions, in side-by-side histograms. Oh, and their presentation is in 5 minutes.
+
+This person can't wait around until you finish your scatter plot changes; you'd have to finish your code *and* then they would have to restructure a part of their presentation around the scatter plot. So, what you really wish at this point is to be able to travel back in time to the moment before you started making your scatter plot changes, when you were using a histogram, and just add a second histogram. 
+
+Git does actually give us a way to travel back in time, but before we talk about that, let's talk about how we could have avoided the need to travel back in time in the first place.
+
+The root of our problem is that, up to this point, every commit was treated equally, regardless of whether it leaves the code in an overall presentable state (where other people might want to use it) or in a state of partial progress (where more work is needed before other people would want to use it). And so we arrive at the concept of branches: whereas a commit in Git represents a minimal coherent unit of work, a branch in Git represents a collection of commits that, together, form a useful unit of work. 
+
+So, instead of committing our  scatter plot changes, let's create a new branch. Click "New Branch" in the Git pane of RStudio and give your new branch a name. If you think of a branch as a goal, that will help you pick a good name. Also, branch names are limited to letters, numbers, and some symbols (- and _ are fine, and everything beyond that gets complicated, so for now just stay away from it). Let's name this branch "scatter-plot".
+
+Creating a branch created a goal, but we haven't yet accomplished anything towards that goal. Git automatically set this as our current goal (aka current branch), and since we have pending changes that would contribute to that goal, let's commit them. Save your changes, then click "Commit" in RStudio's Git pane, and note that the window that comes up says "scatter-plot" in the top left corner to let you know that you are about to make progress on the "Scatter plot" goal by committing on the scatter-plot branch.
+

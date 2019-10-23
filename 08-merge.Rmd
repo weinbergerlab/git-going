@@ -1,0 +1,17 @@
+# Merging branches
+
+As it stands, the dual histograms work is done, and the scatter plot work is still in progress. Since the master branch is where all the complete work goes, now we need to inform Git that the dual histogram work is done, and that the commit associated with it should be on the master branch from now on. 
+
+This process is called merging branches. RStudio has no good way to help us with it, so we will switch to GitHub Desktop for this task.
+
+The first time you use GitHub Desktop with a particular project, you need to tell it where the project is. Choose File > Add Local Repository from the GitHub Desktop menu, and locate your Git Playground project. 
+
+At the top of your GitHub Desktop window, you will see the current branch you are on. This works exactly the same as the current branch indicator in RStudio. You can switch between branches in GitHub Desktop, then go back to RStudio, and RStudio will show the code from that branch.
+
+But we are here to merge, so let's do that. Before you merge you need to identify where the code you care about currently is (in this case, the code is on the dual-histograms branch) and where it should be merged (in this case, we want it to also be on the master branch). These are called the source and the destination of the merge, and most often the source will be a relatively short-lived branch, and the destination will be the long-lived master branch. 
+
+In GitHub Desktop, make sure you are on the destination branch (master) by choosing it from the Current Branch menu at the top of the window. Then choose Branch > Merge Into Current Branch from the menu and choose the dual-histograms branch. Click "Merge dual-histograms into master". 
+
+Nothing too eventful happens at this point, but let's go back to RStudio and look at the history window. Select "all branches" at the top and note that master and dual-histograms are now the same, whereas scatter-plot is an offshoot of an older commit. 
+
+

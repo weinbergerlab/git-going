@@ -1,0 +1,12 @@
+# Creating a project
+
+Let's begin by creating a new RStudio project. This project will be our Git playground. Open RStudio, and choose File > New Project from the menu. In the window that opens, choose "New Directory", then choose "Shiny Web Application". 
+
+Give your new project a name. "Git Playground" is a good name for this project. Make sure that "Create a git repository" is checked. If you do not have this checkbox, your RStudio is not set up to talk to Git; go back and double check that you set everything up as described in the previous section.
+
+Click Browse to pick where you want to save your new project, then click Create Project.
+
+TODO: add image
+
+RStudio will open your new project. If you are using the default RStudio settings, you will see the "Git" tab in the upper left pane of your RStudio window (next to Environment, History, and Connections tabs). 
+

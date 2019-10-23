@@ -1,0 +1,25 @@
+# The first commit
+
+The purpose of Git is to give us a way to track changes we make to a project as we are working on it. The way it does this enables several things that would otherwise be difficult, such as looking back through the history of the project to see when a particular change was made and by whom, or collaborating with other contributors.
+
+How we do these things with Git will be topic of the rest of these tutorials. To begin with, our workflow with Git will go like this:
+
+1. Make some changes to our code
+2. Tell Git that we made those changes
+3. Tell Git what the purpose of those changes was
+4. Repeat
+
+In Git parlance, step 2 is called "staging" and step 3 is called "committing". You can think of these steps as sending a care package to your future self (or, eventually, your future collaborators). In this care package, you put some related items (those are the code changes you made); you then seal the package so that it can't be tampered with, attach a card describing the contents of the package, and send the package into the future. Your future self will be able to look at the card on the package to understand what to expect inside, and then look inside the package to see the items (code changes) you sent them.
+
+If you imagine doing this every time you make changes to your code, you will immediately realize that your future self will have a lot of (small) care packages on their hands. In order to be able to make sense of it all, the contents of the card you attach to each package will be very important. In fact, they will be much more important in the future than they are at the moment you are writing the card, so it is good to pay attention to what goes in this card.
+
+Let's do this now with the project we created in the previous section. When we created the project, we made a change to it, in that it didn't exist before we created it, and now it does. Let's tell git that this happened.
+
+Look in your Git panel in RStudio and you will see three items, each with an checkbox and two yellow question marks. The three items will be called "App.r", "Git Playground.Rproj", and ".gitignore". Each of those items represents a file that is a part of the project, and the yellow question marks are telling us that Git doesn't know if those files are important or irrelevant. Without digging into the details of what the purpose of each file is, I can assure you that all three of them are important, so we need to let Git know about them.
+
+To do so, let's stage each file. Check the "Staged" checkbox next to each file. As you do this, the question marks will change into green A indicator, which stands for "Added"; telling git that a previously unknown file is important is also called "adding the file to git". The difference between staging and adding will become clearer later. 
+
+Now that all three files are staged (in our metaphor, we have created a care package with those three files in it), we are ready to commit it (to seal the package and attach a note to it). To do so, click on "Commit" above the list of files in the Git panel. A new window will open; for now, the only part of that window you care about is the upper right section, where you can enter a message to describe the purpose of these changes. Let's go ahead and do that; "Created a new project from Shiny template" is a good description. After typing that, click "Commit". A confirmation window will pop up; you can close it, as well as the Git commit window itself, to return to the main RStudio window.
+
+So far, nothing too eventful happened, but we did three things that will be at the center of all our future work: we made some changes, we staged the changes, and we committed them. Now we build on this.
+

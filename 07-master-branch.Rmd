@@ -1,0 +1,53 @@
+# The master branch
+
+And now, before you do any other work on scatter plots, you are interrupted by a coworker asking for dual histograms. Since your partial progress on scatter plots is confined to the scatter-plots branch, what you want to do right now is ask Git to take you back to a point in time before that work started. 
+
+This place is the `master` branch. (Which sometimes goes by other names, like `main`, `stable`, or `trunk`.) Just as every other branch is a collection of commits that belong to a specific goal, the master branch is a collection of commits. But rather than being associated with a specific accomplishment, the master branch is the collection of all accomplishments completed to date. 
+
+Usually, you will not directly commit to the master branch except when you first start a new project. The three commits you made at the beginning of these tutorials were committed to the master branch, because you did that before you learned about branches, and in absence of other branches, the master branch is where commits go.
+
+You can see this if you look at the history of your project by clicking the clock icon in the RStudio git pane. It will show you that the master branch is "stuck" on the 3rd commit, and that the "scatter-plot" branch is on the most recent (4th) commit. It also makes it clear that the 4th commit is based on the 3rd commit.
+
+Close the history window and find the place in the RStudio git panel where the current branch (which is scatter-plots) is shown, in the upper right corner. Click on it and change it to master.
+
+If you now look in the code for app.R you will see that you scatter plot changes have vanished. Don't worry — click on the current branch in the Git pane and change it to scatter-plots and see your changes reappear. Then switch back to the master branch.
+
+Back to the interrupting coworker. They gave you a new goal: dual histograms. Let's make that work for them.
+
+First, create a new branch named "dual-histograms". Then make the following changes to add a second plot to the user interface:
+
+```
+	# Show plots
+	mainPanel(
+		 plotOutput("durationPlot"),
+		 plotOutput("intervalPlot")
+	)
+```
+
+and
+
+```
+output$durationPlot <- renderPlot({
+    # generate bins based on input$bins from ui.R
+    x    <- faithful[, 1]
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+    # draw the histogram with the specified number of bins
+    hist(x, breaks = bins, col = 'darkgray', border = 'white', main = "Duration")
+})
+
+output$intervalPlot <- renderPlot({
+    # generate bins based on input$bins from ui.R
+    x    <- faithful[, 2]
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    
+    # draw the histogram with the specified number of bins
+    hist(x, breaks = bins, col = 'darkgray', border = 'white', main = "Interval")
+})
+```
+
+Stage and commit your changes with a message like "Added a second histogram to show both durations and intervals". After committing, open the history window (clock icon in Git pane) then find the current branch name, dual-histograms, in the upper left corner. Click on it and change it to "all branches". 
+
+Note what the history looks like now: dual-histograms, your current branch, is based on master; scatter-plot is also based on master. If you close the history window, you can switch between the three to them and see your code automatically updated to contain either the dual histogram changes (on dual-histograms branch), the scatter plot changes (on scatter-plot branch), or neither (on master branch).
+
+

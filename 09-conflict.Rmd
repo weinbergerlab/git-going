@@ -1,0 +1,139 @@
+# Merge conflicts
+
+As you are doing this, you are probably asking yourself what will happen when we try to merge scatter plots into master, now that dual histograms have been merged. The two are obviously incompatible with each other, so we'll have to make some decisions about what we want as the final result. 
+
+But first, let's finish our work on scatter plots. Switch to the scatter plots branch and get rid of the slider:
+
+```
+sidebarPanel(
+),
+```
+
+Save, stage, and commit those changes. Run the app and you will see that the slider is gone, but there is still a (blank) panel to the left of the plot. In an ideal world, we would get rid of that blank panel, too, but for tutorial purposes, we'll leave well enough alone.
+
+Now go to GitHub Desktop, switch to the master branch, and merge scatter-plots into master. The first thing you will notice is that GitHub Desktop helpfully says "There will be 1 conflicted file when merging". Merge anyway, and let's see what happens. 
+
+First, GitHub Desktop shows a window that says "Resolve conflicts", and gives you the option to abort the merge. Let's go to RStudio and see what's going on.
+
+Starting on line 25 of the code, you will see two sections that look like this:
+
+```
+<<<<<<< HEAD
+	Some code here
+=======
+  Some other code here
+>>>>>>> scatter-plot
+```
+
+What you see is called conflict marker, and it works like this: the block before `=======` is the code that is on the branch you are merging into, whereas the block after `=======` is the code that is on the branch you are merging from. Next to `>>>>>>>`, Git helpfully tells you which branch you are merging from (scatter-plot). 
+
+As long as these markers remain in the code, GitHub Desktop will refuse to complete the merge. 
+
+Before we can get rid of the conflict markers, we need to decide how we want to resolve this conflict. What does it even mean for the code to have both dual histograms and a scatter plot?
+
+Let's say that at this point you sit down with the coworker who instigated the dual histograms direction in the first place and, upon further discussion, you two agree that the best direction going forward is to include the histogram of durations and the scatter plot of durations vs intervals, but that the histogram of intervals can go.
+
+So, the changes we need at this point at:
+
+1. Keep the duration histogram
+2. Remove the intervals histogram
+3. Keep the scatter plot
+4. Keep the slider
+
+Let's go through them one by one and see a few different ways to handle merging. 
+
+First of all, on lines 25-30, we are specifying which plots will be shown. We decided that we want to keep the duration histogram and the scatter plot, so we can keep the first line from the top block of the conflict, and the only line from the bottom block of the conflict, but drop the second line from the top block of the conflict. And since that will give us what we want, we can get rid of the conflict markers.
+
+Before:
+
+```
+  mainPanel(
+<<<<<<< HEAD
+     plotOutput("durationPlot"),
+     plotOutput("intervalPlot")
+=======
+     plotOutput("scatterPlot")
+>>>>>>> scatter-plot
+  )
+```
+
+After:
+
+```
+  mainPanel(
+    plotOutput("durationPlot"),
+    plotOutput("scatterPlot")
+  )
+```
+
+Second, we need to take care of the code that generates the plots. The changes are similar here — keeping the two plots we want, dropping the one we don't. Before:
+
+```
+<<<<<<< HEAD
+  # Plot durations of eruptions
+  output$durationPlot <- renderPlot({
+      # generate bins based on input$bins from ui.R
+      durations <- faithful[, 1]
+      bins <- seq(min(durations), max(durations), length.out = input$bins + 1)
+
+      # draw the histogram with the specified number of bins
+      hist(durations, breaks = bins, col = 'darkgray', border = 'white', main = "Duration")
+  })
+
+  # Plot interval between eruptions
+  output$intervalPlot <- renderPlot({
+      # generate bins based on input$bins from ui.R
+      intervals <- faithful[, 2]
+      bins <- seq(min(intervals), max(intervals), length.out = input$bins + 1)
+      
+      # draw the histogram with the specified number of bins
+      hist(intervals, breaks = bins, col = 'darkgray', border = 'white', main = "Interval")
+=======
+  # Draw scatter plot of durations and intervals
+  output$scatterPlot <- renderPlot({
+      durations <- faithful[, 1]
+      intervals <- faithful[, 2]
+
+      plot(x=durations, y=intervals)
+>>>>>>> scatter-plot
+```
+
+After:
+
+```
+  # Plot durations of eruptions
+  output$durationPlot <- renderPlot({
+      # generate bins based on input$bins from ui.R
+      durations <- faithful[, 1]
+      bins <- seq(min(durations), max(durations), length.out = input$bins + 1)
+
+      # draw the histogram with the specified number of bins
+      hist(durations, breaks = bins, col = 'darkgray', border = 'white', main = "Duration")
+  })
+
+  # Draw scatter plot of durations and intervals
+  output$scatterPlot <- renderPlot({
+      durations <- faithful[, 1]
+      intervals <- faithful[, 2]
+
+      plot(x=durations, y=intervals)
+```
+
+That resolves the conflicts, but is it correct? If you run the app as it is you'll get an error. If you look closely at what happened, you'll discover that the slider is missing.
+
+Git doesn't have deep and magical insights into your code; it simply performs a line-by-line comparison and then does its best to guess what was different and what was the same when merging two branches; it then gives you the tools to sort out any problems. As a result, it is paramount to test your code after a merge — especially if, as we'll discuss later, you are merging code from a collaborator with your own code.
+
+In this case, Git was wrong. Let's see what we can do to set things right.
+
+This missing slider happened because the scatter-plots branch deleted the slider, and the dual-histograms branch made no changes to the slider. Generally, when a piece of code is only changed on one branch, Git will keep those changes when merging. Here, that results in the slider being removed.
+
+You can see this if you click on the diff button in RStudio's Git pane to review your changes; this shows the changes that your current work (which is resolving the conflict) will make to your current branch (the master branch). You will clearly see you that the lines for the slider have been deleted (marked red).
+
+In a perfect universe, the RStudio feature that lets you revert just those lines would work, but — sadly — it has been broken for over three years. Instead, we're going to use the Atom text editor for this. In GitHub Desktop, close the merge conflict window, and choose Repository > Open in Atom. 
+
+Atom will show you a list of files on the left. Click on app.R. On the right side of the Atom window, under "Merge conflicts", click on "Stage all", then click "See All Staged Changes". Now you're back at the point where you are seeing what changes you are about to commit, just like you were in RStudio, and you can again clearly see the deletion of the slider near the top.
+
+Unlike in RStudio, though, you can click on the first of those lines and then shift-click on the last, then click "Unstage selected lines" above them. Then click on "Unstaged changes" in the right part of the window, and you will see your the five (deleted) lines whose deletion you just unstaged, with a trash can icon above them. Click the trash can icon to discard that deletion, which will put the lines of code back where you want them. Save in Atom, return to RStudio, and run your app. Success!
+
+You may not end up using Atom a lot; it's a fine text editor, but RStudio is usually more convenient for editing R code. However, it's among the best free tools for doing line-by-line staging, unstaging, or reverting changes in Git. Keep it in your back pocket. 
+

@@ -1,0 +1,25 @@
+# Piecemeal staging and committing
+
+Let's now make some more changes and commit them, as a way of exploring what staging and committing can do. First, run the code by clicking "Run App" at the top of the app.R file in RStudio. A window will open showing a slider on the left and a histogram on the right. Moving the slider changes the number of bars in the histogram.
+
+Go back to the main RStudio window, and make the following two changes in the code
+
+1. Change `max = 50` to `max = 100` on line 24
+2. Change `faithful[, 2]` to `faithful[, 1]` on line 40
+
+Rerun the app, and you will see that the slider can now go up to 100 and that the data being plotted has changed; we're now looking at the duration of eruptions, which has a bimodal distribution with peaks around 2.0 and 4.5. (Previously we were looking at the time interval between eruptions.)
+
+Now we will commit these changes. These two changes are unrelated to each other, and it's usually a good practice to avoid putting unrelated changes in a single Git commit, so we will make two commits instead. 
+
+This is where the point of staging will become apparent. Often, we'll just have one set of related changes, and then we can stage everything and commit it; but when we have multiple unrelated changes in our code, staging is what tells git what we want to include in a commit. 
+
+Start by saving app.R and then opening the commit window (by clicking the Commit button in the Git pane). The bottom half of this window shows you all the changes that are available to be staged; lines of code that you removed are highlighted in red, and the ones you added are highlighted in green. Find the "Stage chunk" button on the right side of the window above the first pair of changed lines, and click it. 
+
+Note that two things happened: that first pair of changed lines disappeared from view (because your view is showing you only the list of lines that are available to be staged), and the Staged checkbox next to app.R in the upper left corner is now neither checked nor unchecked, to indicate that some changes in app.R have been staged, and some haven't.
+
+You can switch to view only the lines that have been staged by clicking the Show Staged radio button above the list of changes in the commit window. 
+
+Since we staged the first pair of changed lines, let's enter an appropriate commit message (such as "Increased slider range to 100") and click Commit. We can then close the progress window to return to the commit window.
+
+Note that now in the commit window app.R is again listed as unstaged (the Staged box is unchecked). That's because the only change that remains (the second pair of lines we changed) hasn't been staged yet. We can go ahead and do that, using either the Stage chunk button or simply by checking the Staged checkbox for app.R to stage all remaining changes. Then we can commit with a message such as "Show eruption duration instead of time between eruptions". Close the commit progress window and the commit window itself, and you are back in the main RStudio window.
+

@@ -1,0 +1,26 @@
+# Git history
+
+Let's explore what we did so far. Click on Diff in the Git pane of the main RStudio window, and then click on History in the upper left corner of the window "Review Changes" window that opens.
+
+The list at the top of the window shows the three commits that we made. Clicking on each commit will show the contents of that commit in the bottom half of the window.
+
+Click around the commits to explore. Things you will note:
+
+1. The contents of the first commit (when we added the code to Git) will be entirely color-coded green, because we added several files
+2. The contents of the other two commits will be relatively small, and each will contain one red line and one green line, because we removed one line of code and replaced it with a new one.
+3. Git recorded who made each commit, and when it was committed. It also recorded the message alongside each commit.
+
+Also note that you can search through the commit messages using the search field at the top of the window. For example, type "slider" into the search field to find just the one commit in which the messages says the slider was updated. 
+
+The place where all of this is stored (all your changes, organized by commit, and all the associated messages), it called the Git repository (or Git repo), and it is stored on your computer. 
+
+Now that you understand this much, a natural question is: what should I put in a single commit? 
+
+The best answer to that is that if some code changes are closely related, they should be in the same commit, and if they aren't, they should be in separate commits. Another way to think about it is that if you start typing your commit message and it comes out as "Did x and y", then you should seriously consider whether x and y should be separate commits.
+
+In our examples, each commit was very small. This is not a problem in itself, but keep in mind that our changes are very small because of the nature of a demo project. A typical commit on a realistic project will usually be bigger than a single-line edit, but if a single-line edit is what makes sense, there is nothing wrong with a single-line edit commit in a realistic project. The smallest commit you can possibly make is one that changes a single letter, and those aren't unheard of either (for example, when fixing a one-letter typo).
+
+What should dictate the content of your commits is not how small or large they are, but how self-contained they are. As a result, when you are making big changes to your code (which is very common when you are initially working on it, or when you are experimenting with a new approach), your commits will naturally be large; when you are making small changes to your code (which is very common when the code has settled down and you are fixing minor problems), your commits will naturally be small.
+
+What made our two separate commits appropriate for our changes here wasn't their size, but the fact that each change (increasing the slider range, and plotting different type of data) makes sense on its own. We could have made one without the other, or we could have made them in the opposite order; they are essentially unrelated, and separate commits are a good way to record unrelated changes. Some reasons for why this is so will become evident later on.
+

@@ -1,0 +1,105 @@
+# The perils of branching and merging
+
+You are probably realizing by now that branches and merging give you new superpowers, but also introduce new complexity. As you will soon see, they are essential in effectively working with collaborators, but this is a good time to talk about how to use branches effectively, before introducing collaborators into the mix.
+
+## The basics of effective branching
+
+When you start a new Git repository (usually as part of creating of a new RStudio project), a new branch (named master by default) is created for you. You should immediately commit your new project on this branch. Now you have one commit on the master branch.
+
+From there on out, you should treat the master branch as a long-running branch which only has completed work on it. Yes, there will sometimes be times when you think that something is completed and you merge it into master, only to realize that it needs more work; that's okay. Think of the master branch as containing completed work, according to your best judgement at the time. 
+
+This means that if someone else wants to use work, they can get your latest presentable work on your master branch. This is useful when someone else needs to use your work (but won't be contributing to it) — having them use the master branch means that they won't need to deal with whatever new ideas and half-baked code you are woking on. It's also useful when you have a new collaborator, because having them start from the master branch gives them a stable place to get up to speed before diving into your work-in-progress.
+
+When you start working on a new goal, being by switching your repository to the master branch (if you're not on it already), and then creating a new branch for that goal, based on the master branch. This is also known as a "topic branch". When you are done with that work, the topic branch will be merged into the master branch. Usually, the topic branch will never be revisited thereafter. 
+
+Topic branches will be short-lived, but exactly what that means is really up to you — and depends on how quickly your project is moving and how big the changes are that you are making. In some projects, a topic branch might go less than a minute between being created and being merged; in others, a topic branch can exist for days or weeks. 
+
+What does matter, however, is that topic branches will generally be at low risk of difficult merge conflicts. If you are working alone, most of the time you won't be starting one topic branch until the previous one is done anyway, because most of the time you are probably going to work on one part of your project before moving on to the next one. Working like that, merge conflicts will be rare.
+
+Finally, to make it easier for Git to make good decisions about your merges, remember that it does a line-by-line comparison of your code. Two specific ways of writing code are prone to creating Git confusion and you should avoid them:
+
+1. Coding styles that result in the same line of code repeated in unrelated places. For example, if you put both the opening ({) and the closing (}) curly brace on a line of their own for each `for` loop, it will be harder for Git to figure out what to do if you ask it to merge two conflicting for loops. Instead, I recommend that you adopt a style in which opening braces are placed at the end of the previous line, not on a line of their own. Usually, your closing braces will end up on their own no matter what you do, but in some situations it may be possible to give closing braces a similar treatment, and you should. For example, this is more confusing to Git:
+
+```
+	if (something)
+	{
+		do_something()
+	} 
+	else
+	{
+		do_something_else()
+	}
+```
+
+and this is a less confusing version of the same code:
+	
+```
+	if (something) {
+		do_something()
+	} else {
+		do_something_else()
+	}
+```
+
+2. Avoid long, unbroken lines of code. If you find that your lines of code are wrapping across multiple lines in your RStudio window, it's definitely time to think about breaking them up — not just for Git's sake, but also for readability's sake. This is harder to read:
+
+```
+	x <- setNames(lapply(l, function(elt) { sprintf("Element: ", elt) }))
+```
+
+than:
+
+```
+	x <- setNames(lapply(l, function(elt) { 
+		sprintf("Element: ", elt)
+	}), someNames)
+```
+
+and Git will have an easier time merging the latter.
+
+It's also worth noting that a new style of writing R code has been emerging recently, championed by the `magrittr` package, which is even more readable (especially for long chains of data-processing code). If you have already encountered this style, I encourage you to use it, and if you haven't, I encourage you to learn about it. This is what the above code would look in magrittr style:
+
+```
+	x <- l %>%
+		lapply(function(elt) { 
+			sprintf("Element: ", elt)
+		}) %>%
+		setNames(someNames)
+```
+
+## Working with long-lived branches
+
+Sometimes, you will need a long-lived branch other than the master branch. This can happen for a few reasons, of which probably the most common is that your project has grown in size and you now have a large to-do item that will take a long time to complete, and while you are working on that to-do item you also need to fix smaller things as they arise.
+
+The best approach to this is to periodically merge changes from master into the other long-lived branch. (This is sometimes called a reverse merge.)
+
+Doing so accomplishes two things: one, it means that any smaller fixes you make (on their own topic branches) and merge (into the master branch) will be available to you while you are working on the long-lived branch. Two, it gives Git incremental information about how to merge the changes between the two branches, which is always simpler than trying to figure out the entire merge all at once. Incremental reverse merges can sometimes completely avert merge conflicts.
+
+The workflow for a long-lived branch looks like this:
+
+1. Work on master and topic branches for a while
+2. Decide to work on a New Big Thing, start long-lived branch for New Big Thing
+3. While working on New Big Thing, discover that there is a problem on the master branch that needs to be fixed
+4. Switch to the master branch and create a new topic branch to fix the minor problem
+5. Fix the minor problem and merge its topic branch into master
+6. Switch to New Big Thing branch and merge master into New Big Thing
+7. Continue work on New Big Thing
+8. Repeat until New Big Thing is done
+9. Merge New Big Thing into the master branch
+
+You only need to make reverse merges if you have a long-lived branch that you intend to merge back into the master branch; and, as you can probably tell by now, what really makes a branch long-lived is that while you are working on it, you (or a collaborator, but we'll get to that later) might make a series of independent changes on their own topic branches and merge them into the master branch. 
+
+## Experimental branches
+
+Sometimes, you might go off in an experimental direction, without the intent to merge your code back into the master. This could be a learning adventure, or it could be trying out a new approach that you aren't sure is going to be viable, etc. When doing that kind of work, it's still valuable to keep track of your progress, so you should still be committing regularly — and obviously you don't want to put experimental work on the master branch.
+
+In this case, you can just create a new branch and do your experimental work on it, and just never merge it into the master. You can (but don't have to) delete the experimental branch when you are done. While you are working on the experimental branch, you might very well also make non-experimental fixes on the master branch (via a merge of a topic branch). Often (but not always), it will make sense to propagate those non-experimental fixes from the master branch to the experimental branch; you can do that with a reverse merge.
+
+Rarely, you may find yourself in a situation where you want to reverse-merge only some changes from the master branch into an experimental (or other long-lived) branch. The obvious and wrong solution is to copy-and-paste the changes you need and commit them separately on both branches. There are better ways of handling this in Git, but they are beyond the scope of this tutorial. 
+
+## Branches on branches
+
+Sometimes you may want to create a branch based on another branch. The simplest case would be when you've come to love the power of the branch-commit-merge approach to topic branches, and you are working on a long-lived branch as part of a large project goal. You way want to apply the branch-commit-merge approach to your work on the long-lived branch… and you should!
+
+It's even possible to create a long-lived branch based on another long-lived branch, but at that point, you will probably start pushing the limits of what's a good idea just in terms of the cognitive load of keeping the branches straight. Feel free to experiment with it, as long as you remember the one thing that everyone eventually learns the hard way: trying to merge wildly divergent branches is often a huge hassle, so avoid letting branches diverge indefinitely. 
+

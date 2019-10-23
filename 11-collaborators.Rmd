@@ -1,0 +1,25 @@
+# Working with collaborators
+
+The central premise of branches is that they let you work on two different (but related) ideas in parallel; this idea has utility when you are working solo, but its true value is in how it makes controlled collaboration possible, because it lets different people work on different (but related) ideas in parallel.
+
+The first part of effective collaboration is to set up some way for code to be passed around between you and your collaborators. If your code is in Git, there are numerous cloud services that will help you with this, of which the most popular are GitHub, GitLab, and BitBucket. Of those, GitHub is the most popular among R users in academia, so that's what this tutorial will focus on.
+
+To start, let's publish your playground repository to GitHub. In GitHub Desktop, look for the "Publish Repository" button at the top. If you don't already have a GitHub account, you'll have a chance to create it; if you do, you'll have a chance to log in.
+
+You'll have to specify the name under which the repository will be published (which can be different from the name it has on your computer, although usually they will be the same), and you can choose to keep it private. A private GitHub repository is not visible to anyone other than collaborators you directly invite; a public repository is visible to everyone. 
+
+Once it's published, you can view your repository on GitHub using Repository > View on GitHub from GutHub Desktop menu. Do that and have a look around. You'll see the following sections in your GitHub repository:
+
+ * Code, which shows you your code (including commits and branches)
+ * Issues, which you can use to keep a to-do list of work that needs to be done. This is also where you can coordinate with your collaborators what work needs to be done, and where anybody else using your code can tell you about problems they've run into
+ * Pull Requests, which we'll talk about later
+ * Projects, which lets you organize issues your to-do list (issues)
+ * Wiki, where you can write documentation about your project
+ * Security, which does nothing for R code and so you can ignore it
+ * Insights, where you can see some statistics about your project's progress
+ * Settings, where you can adjust your project's settings — most notably, this is where you invite collaborators
+ 
+In the code section, you can see commits and branches in their own subsections. The packages subsection does nothing for R code, and the releases subsection is beyond the scope of this tutorial. The contributors subsection shows you an overview of your collaborators' contributions and your own work.
+
+You may notice that your repository on GitHub only has the master branch. This is intentional; work you do on your computer is not automatically sent to GitHub, which means that you are free to create as many branches as you like to experiment with, and only the ones you choose will be shared on GitHub (and then only shared with your collaborators, if your GitHub repository is private).
+
