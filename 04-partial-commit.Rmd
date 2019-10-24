@@ -13,13 +13,15 @@ Now we will commit these changes. These two changes are unrelated to each other,
 
 This is where the point of staging will become apparent. Often, we'll just have one set of related changes, and then we can stage everything and commit it; but when we have multiple unrelated changes in our code, staging is what tells git what we want to include in a commit. 
 
-Start by saving app.R and then opening the commit window (by clicking the Commit button in the Git pane). The bottom half of this window shows you all the changes that are available to be staged; lines of code that you removed are highlighted in red, and the ones you added are highlighted in green. Find the "Stage chunk" button on the right side of the window above the first pair of changed lines, and click it. 
+Although RStudio theoretically lets you do partial commits, its interface for doing so is flimsy and has been broken on-and-off for over 3 years 🤦, so we're going to use Atom for this instead. 
 
-Note that two things happened: that first pair of changed lines disappeared from view (because your view is showing you only the list of lines that are available to be staged), and the Staged checkbox next to app.R in the upper left corner is now neither checked nor unchecked, to indicate that some changes in app.R have been staged, and some haven't.
+Start by saving app.R and then open GitHub Desktop. Since this is your first time running GitHub Desktop for this project, you'll first need to choose File > Add Local Repository from the GitHub Desktop menu and choose your Git Playground folder. Next, choose Repository > Open in Atom from the GitHub Desktop menu.
 
-You can switch to view only the lines that have been staged by clicking the Show Staged radio button above the list of changes in the commit window. 
+Atom will show you a list of files on the left. If the right side of the Atom window isn't showing the Git panel, choose View > Toggle Git Tab to show it. Now look under "Unstaged Changes" in the Git panel, and click on app.R. That will open app.R in the middle section of the Atom window, and if you scroll around it, you will see that it's only showing you the changes you made (with a few lines before and after, for context), rather than the whole file. 
 
-Since we staged the first pair of changed lines, let's enter an appropriate commit message (such as "Increased slider range to 100") and click Commit. We can then close the progress window to return to the commit window.
+Click on the first line of the first of your two changes, then shift-click on the second line of the same change. That will select those two lines; next, click "Stage Selected Lines" right above them. As soon as you stage that two-line change, it will disappear, because you are only looking at unstaged changes. 
 
-Note that now in the commit window app.R is again listed as unstaged (the Staged box is unchecked). That's because the only change that remains (the second pair of lines we changed) hasn't been staged yet. We can go ahead and do that, using either the Stage chunk button or simply by checking the Staged checkbox for app.R to stage all remaining changes. Then we can commit with a message such as "Show eruption duration instead of time between eruptions". Close the commit progress window and the commit window itself, and you are back in the main RStudio window.
+Enter an appropriate commit message on the right (such as "Increased slider range to 100"), and click "Commit to master". 
+
+Repeat the same process to stage and commit the second two-line change with a message such as "Show eruption duration instead of time between eruptions".
 
