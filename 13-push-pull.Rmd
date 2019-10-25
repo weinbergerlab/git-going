@@ -1,0 +1,44 @@
+# Pushing and pulling
+
+Commits and branches on your computer are not magically synced with GitHub or with other collaborators. The process of sending your changes to GitHub (and thereby making them available to collaborators) in called "pushing a branch"; the process of receiving others' changes from GitHub is called "pulling a branch". 
+
+## Collaborator #1
+
+Starting from the master branch, let's change the color of histogram bars to blue. Create a new branch named blue-bars, and make the following change in app.R:
+
+```
+	hist(durations, breaks = bins, col = 'darkblue', border = 'white', main = "Duration")
+```
+
+Stage and commit the change.
+
+At this point, you have a blue-bars branch on your computer, but not on GitHub. You could decide to keep this branch to yourself (for example, if it was work-in-progress that you're not ready to share with collaborators), but let's assume that you want to share this work with others (perhaps to ask for their feedback). 
+
+In RStudio's Git panel, click Push (green up arrow), then switch to GitHub Desktop and choose Repository > View on GitHub from the GitHub Desktop menu. On GitHub, in the code tab, you can look under Branches to see a list of all the branches, which at this point will consist of the blue-bars branch and the master branch.
+
+## Collaborator #2
+
+You, too, can choose Repository > View on GitHub from your GitHub Desktop, and you will see the same thing on GitHub — the list of Branches will have the blue-bars and master branches in it.
+
+To get the blue-bars on your computer, you need to do two things in RStudio. First, to make sure that your computer knows about the branches on GitHub, click the sync button in the top right part of the Git pane. Second, click on the current branch button, also in the top right of the Git pane, and from the bottom half of the menu (in the Remote section) choose the blue-bars branch.
+
+Doing this makes a copy of the blue-bars branch on your computer and makes it the current branch. You can run app.R to confirm that you have a blue histogram.
+
+## Collaborator #1
+
+Still on the blue-bars branch, change the color of the bars to a different blue:
+
+```
+	hist(durations, breaks = bins, col = 'lightblue', border = 'white', main = "Duration")
+```
+
+Save, stage, commit, and push this change in RStudio. Pushing the branch is what makes the remote branch (on GitHub) reflect the local branch (on your computer)
+
+## Collaborator #2
+
+In RStudio, click the sync button in the Git pane, then click the pull (blue down arrow) button. Pulling is what updates the local branch (on your computer) reflect the remote branch (on GitHub). You can run app.R to confirm you have a light blue histogram.
+
+## Both collaborators
+
+As long as only one of you is making commits on that branch, you could continue collaborating simply by having that one who is committing push the branch from time to time, and the other pull the branch from time to time. All the while, the master branch remains unperturbed; as when you were working individually, you can wait until you feel confident about the changes on the topic branch before you merge it into the master branch.
+

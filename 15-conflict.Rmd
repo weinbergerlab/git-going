@@ -1,0 +1,46 @@
+# Merge conflicts with collaborators
+
+Just as you could encounter a merge conflict when working on multiple branches by yourself, you can encounter a merge conflict with a collaborator. Typically, this happens when one collaborator is working on one branch, which is then merged into the master branch, while the other collaborator is working on a separate branch, and encounters a merge conflict when trying to merge into the master branch. 
+
+There is only one thing that is significantly different about handling conflicts involving more than one collaborator. 
+
+When you encountered a conflict with yourself, you were able to resolve conflicts and merge in one step. What made that possible is that you could have the conflicted code on your computer, make changes until you were satisfied that the conflict was resolved and the code was working, and then complete the merge. 
+
+On the other hand, when you are working with a collaborator, merging will be done as a part of a PR, and you'll want to review the merge using the same process (however trivial) you use to review other changes. Let's walk through that.
+
+# Collaborator #2
+
+In RStudio, switch to the better-labels branch you created earlier, and make the following change to improve histogram labels:
+
+```
+	hist(durations, breaks = bins, col = 'darkgray', border = 'white', main = "Duration", xlab="Eruption duration (s)")
+```
+
+Stage and commit your change and push the better-labels branch to GitHub. Switch to GitHub Desktop and create a PR into the master branch from the the better-labels branch. You will see a warning that the PR can't be automatically merged (meaning that there is a conflict). Go ahead and create the PR anyway. 
+
+Once the PR is created, you will see several different options for resolving the merge conflict. You can ignore all of them except for "open this in GitHub Desktop", which you should click on. That will open GitHub Desktop and make sure that you are on the correct branch. 
+
+Now you will do a reverse merge: bring the (conflicting) changes from the master branch into the better-label branch, and resolve the conflict while staying on the better-label branch. First, choose Branch > Update from master in GitHub Desktop menu. You will get a conflict warning.
+
+Switch to RStudio and find the conflict markers. Resolve the conflict by keeping the col argument from the master branch and the xlab argument from the better-labels branch:
+
+```
+	hist(durations, breaks = bins, col = 'mediumblue', border = 'white', main = "Duration", xlab="Eruption duration (s)")
+```
+
+Save, stage, commit, and push. Now revisit the PR on GitHub. It will automatically update to reflect that the conflict has been resolved (on the better-labels branch).
+
+# Collaborator #1
+
+Open the better-labels PR on GitHub and you will see that it can be merged without conflicts. At this point, you could get the code on your computer (by switching to the better-labels branch in RStudio) or comment on the PR. After you are satisfied, go ahead and switch to Files Changed section of the PR, and give Collaborator #2 approval to merge. 
+
+# Collaborator #2
+
+After you get the approval, go ahead and merge the better-labels PR on GitHub. 
+
+# Both collaborators
+
+Switch to the master branch in RStudio, sync, and pull. You now both have changes from both of your branches!
+
+
+

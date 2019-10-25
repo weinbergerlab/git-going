@@ -1,0 +1,19 @@
+# Starting GitHub collaboration
+
+The rest of this tutorial is divided into two sets of instructions: one set for collaborator #1, the other for collaborator #2. Pick who is going to follow which instructions; you should both read both sets of instructions, so both of you understand what the other person is doing. 
+
+## Collaborator #1
+
+Go to your Git Playground project on GitHub, and in Settings tab click on Collaborators, then invite collaborator #2 to your project.
+
+## Collaborator #2
+
+Accept the collaboration invite from your email. Open GitHub Desktop, then choose File > Clone Repository from the GitHub Desktop menu. You will see a list of repositories, in which Collaborator #1's Git Playground will be listed. Select it from the list. (If you see both your own Git Playground and their Git Playground in the list, you can differentiate them by GitHub username, which is part of the repository name listed in GitHub Desktop. Make sure you select their Git Playground, not yours, from the list.) 
+
+Below the list, you can choose the folder on your computer where the project will be stored. Choose it as you see fit, then click Clone.
+
+At that point, GitHub Desktop will download a copy of the repository from GitHub to your computer, and show it to you. Note that in the top left corner of the GitHub Desktop window you can switch between repositories.
+
+## Both collaborators
+
+At this point, both of you have a copy of Collaborator #1's Git Playground repository. You can each work on your respective copies as if you were solely responsible for them. Let's see how you go about making changes and sharing them with each other.

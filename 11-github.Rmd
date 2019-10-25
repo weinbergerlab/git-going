@@ -1,4 +1,4 @@
-# Working with collaborators
+# Collaborating on GitHub
 
 The central premise of branches is that they let you work on two different (but related) ideas in parallel; this idea has utility when you are working solo, but its true value is in how it makes controlled collaboration possible, because it lets different people work on different (but related) ideas in parallel.
 
@@ -8,7 +8,7 @@ To start, let's publish your playground repository to GitHub. In GitHub Desktop,
 
 You'll have to specify the name under which the repository will be published (which can be different from the name it has on your computer, although usually they will be the same), and you can choose to keep it private. A private GitHub repository is not visible to anyone other than collaborators you directly invite; a public repository is visible to everyone. 
 
-Once it's published, you can view your repository on GitHub using Repository > View on GitHub from GutHub Desktop menu. Do that and have a look around. You'll see the following sections in your GitHub repository:
+Once it's published, you can view your repository on GitHub using Repository > View on GitHub from GitHub Desktop menu. Do that and have a look around. You'll see the following sections in your GitHub repository:
 
  * Code, which shows you your code (including commits and branches)
  * Issues, which you can use to keep a to-do list of work that needs to be done. This is also where you can coordinate with your collaborators what work needs to be done, and where anybody else using your code can tell you about problems they've run into
@@ -23,3 +23,4 @@ In the code section, you can see commits and branches in their own subsections. 
 
 You may notice that your repository on GitHub only has the master branch. This is intentional; work you do on your computer is not automatically sent to GitHub, which means that you are free to create as many branches as you like to experiment with, and only the ones you choose will be shared on GitHub (and then only shared with your collaborators, if your GitHub repository is private).
 
+To really see how collaboration features of Git and GitHub work, you're going to need a collaborator; from here on, you and a collaborator will be going through the tutorial together, so go find a collaborator now.

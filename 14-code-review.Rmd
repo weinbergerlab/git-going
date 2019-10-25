@@ -1,0 +1,65 @@
+# Collaborative code review
+
+The pattern of having one person commit and push, and the other person pull to review is fairly common for collaborations in which one contributor is primarily writing code and the other is primarily giving feedback. GitHub has an additional feature, called "pull requests" (PRs), that is particularly helpful in these code review collaborations.
+
+You don't have to use pull requests when collaborating on GitHub; you can continue simply using push/pull. However, many projects on GitHub use PRs for all collaboration. 
+
+## Collaborator #1
+
+You have been the one writing code on the blue-bars branch so far, which makes you the main author of that branch. Go to GitHub Desktop, and (with the blue-bars branch current) choose Branch > Create Pull Request. This will take you to the GitHub website.
+
+In the Open a pull request window on GitHub website, make sure that the "base" menu has the master branch selected, and that the "compare" menu has the blue-bars branch selected. What you are doing now is telling GitHub that it is your intent to eventually merge the blue-bars branch into the master branch. Pull requests are sometimes also called merge requests (aka MR). 
+
+Your PR needs a title, which states the intent of the changes (for example, "Change histogram bar color to blue") and you can optionally add a description. The description should contain any additional information a reviewer might need. Examples include:
+
+ * The reviewer should test some specific areas of your code
+ * The reviewer should test on a specific operating system or version of R
+ * The reviewer needs to install some specific packages 
+ * The reviewer needs to download some specific datasets in order to use your new code
+ * Summary of the rationale for making this change
+ * Summary of conversations that lead to this change
+ * Any concerns that remain unresolved after this change
+ 
+For example, your description for this particular PR might say: "Please review new histogram bar color and let me know if you think it's too light". 
+
+You can (and probably should) designate at least one person responsible for completing this work (called the assignee) and at least one person responsible for reviewing this work (called the reviewer) on the right hand side. For this particular PR, you are the assignee, and collaborator #2 is the reviewer. Then click "Create pull request".
+
+You can create a PR before the work is done. In fact, you can create a PR as soon as you create a topic branch. However, you probably shouldn't assign a reviewer until the code is ready for review. 
+
+## Collaborator #2
+
+You will get an email from GitHub telling you you have been assigned to review this PR. Click on the link in that email to open the PR on GitHub in your web browser. On GitHub, you can start a conversation about the PR — for example, if you have questions or feedback. By clicking on "Files Changed", you can review the code changes line-by-line, and you can leave comments on individual changes. 
+
+Let's say that you don't like the light blue color. In the blue-bars PR, under Files Changed, find the change in question. Click-and-drag over the changed lines of code to make a comment. Write a comment to that effect, and click on "Start a review". 
+
+(If you wanted to make general review comments, rather than commenting on specific lines of code, you could click the Review Changes button at the top of the Files Changed section.)
+
+There are three types of reviews you can do in GitHub: a general comment, in which you provide feedback but neither request specific additional changes nor give approval to merge the existing changes; an approval, in which you approve of merging the existing changes; and a request for changes, in which you request additional changes before approving the merge.
+
+In this case, you are asking for additional changes, so click on Finish Your Review at the top of Changed Files, choose Request changes, and click Submit Review. 
+
+## Collaborator #1
+
+You got some feedback! Let's try a medium blue — make the following change:
+
+```
+	hist(durations, breaks = bins, col = 'mediumblue', border = 'white', main = "Duration")
+```
+
+Save, stage, commit, and push the blue-bars branch. Open the PR in your web browser and TODO.
+
+## Collaborator #2
+
+Go back to the PR in your web browser. Note that the PR now reflects the new code that was just pushed by Collaborator #1. Let's say that you think the code is ready for your approval, but you want to run it on your computer to be sure.
+
+Open GitHub Desktop and click the sync icon. Under Current Branch, choose Pull Requests, the choose the PR you two are working on. Go to RStudio and note that the code has been updated. Run app.R. 
+
+Let's say you like the results and are ready to approve the code. Open the PR on GitHub, go to Files Changed, click Review Changes, click Approve, and click Submit Review. 
+
+## Collaborator #1
+
+Your work has been approved by your collaborator! Open the PR on GitHub, and scroll to the bottom of the Conversation section. Click on Merge Pull Request. Your changes are now merged into the master branch on GitHub. Go to RStudio, switch to the master branch, sync with GitHub, and pull the master branch.
+
+## Collaborator #2
+
+Before you pull the master branch from GitHub, go to RStudio, switch to the master branch, and create a new branch named better-labels. This will be needed in the next part of the tutorial. Now you can switch back to the master branch, sync, and pull, and you will get the latest code with medium blue bars. 
