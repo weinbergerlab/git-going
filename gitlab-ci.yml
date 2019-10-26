@@ -1,9 +1,10 @@
 stages:
+  - build
   - pages
 
-pages:
+build:
   extends: .docker
-  stage: pages
+  stage: build
   variables:
     PAGES_BUILD_DIR: "public"
     GITLAB_DOCKER_BUILD: ${CI_REGISTRY}/ci-utilities/ci-commands/gitlab-docker-build
@@ -11,6 +12,15 @@ pages:
   script:
     - dind-run "${GITLAB_DOCKER_BUILD}" --cache-from master build .
     - dind-run "${BUILD}" Rscript -e "rmarkdown::render_site(output_format = 'bookdown::gitbook', encoding = 'UTF-8')"
+  artifacts:
+    paths:
+      - public
+
+pages:
+  extends: .docker
+  stage: pages
+  script:
+    - "# Nothing to do here, just passing along artifacts"
   artifacts:
     paths:
       - public
