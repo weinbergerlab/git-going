@@ -1,0 +1,16 @@
+# Getting started
+
+1. Create an account on Github
+
+2. Install Git on your computer. Git can be found and downloaded here: https://git-scm.com/
+
+3. Configure Rstudio to work with your Git/Github accounts (see https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html( )):
+   - Open RStudio
+   - Click Tools -> Global Options -> Git/SVN
+   - If Git executable shows (none), click Browse and select the git executable installed on your system
+   - On a Mac, this will likely be one of
+      /usr/bin/git
+      /usr/local/bin/git
+      /usr/local/git/bin/git
+  - On Windows, git.exe will likely be somewhere in Program Files
+  - Click OK

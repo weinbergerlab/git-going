@@ -1,5 +1,26 @@
 # Creating a project
 
+## Option 1: First create a repository on Github
+
+If you are starting a new project, the easiest thing to do is 
+1) to navigate to your Github page, go to the Repositories tab; click "New Repository".
+
+-Choose a name for your repository
+- do NOT add a readme file
+- Do NOT add gitignore or choose license (you can do these later)
+
+2) Open RStudio, go to File/New Project/Version Control/Git
+
+3) Paste in URL from your new github project and then choose the folder where you want the project to be on your computer
+
+4) You should now see a 'Git' tab in the upper righthand corner near the 'Environment' tab in Rstudio
+
+## Option 2: There is an existing repository that you want to contribute to
+
+Follow the steps from Option 1, using the URL for the target repository. Note that if you want to be able to push changes to a repository created by someone else, you will need write access.
+
+## Option 3: Starting a project from Scratch in RStudio
+
 Let's begin by creating a new RStudio project. This project will be our Git playground. Open RStudio, and choose File > New Project from the menu. In the window that opens, choose "New Directory", then choose "Shiny Web Application". 
 
 Give your new project a name. "Git Playground" is a good name for this project. Make sure that "Create a git repository" is checked. If you do not have this checkbox, your RStudio is not set up to talk to Git; go back and double check that you set everything up as described in the previous section.
